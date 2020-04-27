@@ -1,0 +1,19 @@
+version: '3.4'
+
+services:
+
+  express:
+    build: api-todo 
+    ports:
+      - 3000:3000
+    links:
+      - database
+  database:
+    image: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - mongo-db:/data/db
+volumes:
+  mongo-db:
+    
