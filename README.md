@@ -11,7 +11,7 @@ This todo app only has backend done for now using express server and mongoDB as 
 systemctl start firewalld
 ```
 * open the docker-todo-app folder which has been cloned or downloaded and go to api-todo/db and open mongoose.js in your code editor
-* then change the url( which looks like: 'mongodb://localhost:27017') to 'mongodb://<_your_container_ip_>:27017'
+* then change the url( which looks like: 'mongodb://**localhost**:27017') to 'mongodb://**<_your_container_ip_>**:27017'
 * to get your container ip what you need to do is first run the docker-compose.yml file which is in the folder you have downloaded
 * after running the dokcer-compose file run the command below:
  ```
@@ -25,3 +25,11 @@ systemctl start firewalld
  systemctl start httpd
  ```
  * The app is ready to use now
+## Launching the app in web browser
+* after lauching the app in a browser you may be getting just a `[]`. So to display some content open postman like service and post new content. when You use the post request Postman like servide set the body to JSON type and update the body. The body should be a object should look like this:
+```
+{
+ "title": "<_your_todo_task_>",
+}
+```
+after this you can check the web browser to see the updated post
