@@ -25,17 +25,21 @@ app.use(function(req, res, next) {
   next();
 });
 
+app.get('/', (req, res) => {
+  res.send(`This is an app with only backend. Use postman or other similar api's like RESTer. <a href="./task">click here to view the tasks</a><br>don't forget that you can only make get request in this app if this is in web browser.`)
+})
+
 /**
  * CRUD applications will be written here
  */
 
-app.get('/', (req, res) => {
+app.get('/task', (req, res) => {
   Task.find({}).then((task) => {
     res.send(task);
   })
 });
 
-app.get('/:id', (req, res) => {
+app.get('/task:id', (req, res) => {
   Task.find({
     _id: req.params.id
   }).then((task) => {
@@ -43,7 +47,7 @@ app.get('/:id', (req, res) => {
   })
 });
 
-app.post('/', (req, res) => {
+app.post('/task', (req, res) => {
   let title = req.body.title;
   let newTask = new Task({
     title
@@ -53,7 +57,7 @@ app.post('/', (req, res) => {
   })
 });
 
-app.patch('/:id', (req, res) => {
+app.patch('/taks/:id', (req, res) => {
   Task.findOneAndUpdate({ _id: req.params.id}, {
     $set: req.body
   }).then(() => {
@@ -61,7 +65,7 @@ app.patch('/:id', (req, res) => {
     })
 });
 
-app.delete('/:id', (req, res) => {
+app.delete('/task/:id', (req, res) => {
   Task.findOneAndDelete({ _id: req.params.id})
   .then((TaskDocRem) => {
      res.send(TaskDocRem)
