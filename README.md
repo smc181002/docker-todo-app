@@ -10,23 +10,37 @@ This todo app only has backend done for now using express server and mongoDB as 
 ```
 systemctl start firewalld
 ```
-* open the docker-todo-app folder which has been cloned or downloaded and go to api-todo/db and open mongoose.js in your code editor
-* then change the url( which looks like: 'mongodb://**localhost**:27017') to 'mongodb://**<_your_container_ip_>**:27017'
-* to get your container ip what you need to do is first run the docker-compose.yml file which is in the folder you have downloaded
-* after running the dokcer-compose file run the command below:
+* then run the following commands to compile and run the docker compose
+```docker compose up```
+* If the container is running perfectly you will get message in console saying:
+```
+express_1   | listening at port 3000
+express_1   | Connection to mongoDB is established.
+```
+* if you don't get these two message, the ip of mongoDB container is not matching with the ip written in express.js code.
+* for this what you need to do is find the ip of your mongodb container 
+* this can be done by following these commands
  ```
  docker conatiner ls #you will get the running containers
- docker container inspect <_container_name_> | grep IPAddress # you will get the ip addrress
+ docker container inspect docker-todo-app_database_1 | grep \"IPAddress\" # you will get the ip addrress
  ```
- * Then enter the IP address and run the docker-compose file again
- * for RHEL8 after this stop the firewalld and start httpd
+* get the container name from first command and press the container name in the field <_container_name_>
+* open the docker-todo-app folder which has been cloned or downloaded and go to **api-todo/db** and open mongoose.js in your code editor
+* then change the url( which looks like: 'mongodb://**172.17.0.2**:27017') to 'mongodb://**<_your_container_ip_>**:27017'
+* after changing the code go back to docker-todo-app and run these following commands:
+```
+docker-compose build
+docker-compose up
+```
+* for RHEL8 after this stop the firewalld and start httpd
  ```
  systemctl stop firewalld
  systemctl start httpd
  ```
  * The app is ready to use now
+ 
 ## Launching the app in web browser
-* after lauching the app in a browser you may be getting just a `[]`. So to display some content open postman like service and post new content. when You use the post request Postman like servide set the body to JSON type and update the body. The body should be a object should look like this:
+* after lauching the app in a browser when you click on the link you may be getting just a `[]`. So to display some content open postman like service and post new content. when You use the post request Postman like servide set the body to JSON type and update the body. The body should be a object should look like this:
 ```
 {
  "title": "<_your_todo_task_>",
