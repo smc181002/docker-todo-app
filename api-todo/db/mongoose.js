@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://172.17.0.1:27017/todoApp',
+mongoose.connect('mongodb://database:27017/todoApp',
 {useNewUrlParser:true}).then(() => {
   console.log('Connection to mongoDB is established.')
 }).catch((e) => {
